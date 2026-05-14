@@ -1,0 +1,98 @@
+/* Shared kit styles — both UI kits use this. */
+@import url("./tokens.css");
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--brah-cream);
+  color: var(--brah-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+/* Layout shells */
+.container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 32px; }
+.container-wide { width: 100%; max-width: 1600px; margin: 0 auto; padding: 0 24px; }
+
+.section { padding: 96px 0; }
+.section-tight { padding: 56px 0; }
+
+/* Common stamp / overline */
+.over {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+}
+.stamp-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 2px solid var(--brah-stamp-red); color: var(--brah-stamp-red);
+  font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; font-size: 11px;
+  padding: 5px 10px;
+  background: var(--brah-cream);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 22px;
+  border: none;
+  font-family: var(--font-body); font-weight: 700; font-size: 14px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  transition: background var(--t-base) var(--ease-out), transform 60ms;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--brah-tomato); color: var(--brah-cream); }
+.btn-primary:hover { background: var(--brah-stamp-red); }
+.btn-dark { background: var(--brah-black); color: var(--brah-cream); }
+.btn-dark:hover { background: #2a2a2a; }
+.btn-ghost { background: transparent; color: var(--brah-black); border: 1.5px solid var(--brah-black); padding: 12.5px 22px;}
+.btn-ghost:hover { background: var(--brah-black); color: var(--brah-cream); }
+
+/* Wordmark image */
+.wordmark { display: inline-block; height: 28px; }
+.wordmark img { height: 100%; display: block; }
+.wordmark.lg { height: 80px; }
+.wordmark.invert img { filter: brightness(0) invert(1); }
+.wordmark.tomato img { filter: brightness(0) saturate(100%) invert(54%) sepia(40%) saturate(2200%) hue-rotate(346deg) brightness(98%) contrast(90%); }
+
+/* Grain overlay */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply; opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Handwritten note utility */
+.hand {
+  font-family: var(--font-hand);
+  line-height: 1;
+}
+
+/* Marquee strip */
+.marquee {
+  background: var(--brah-tomato); color: var(--brah-cream);
+  padding: 10px 0;
+  overflow: hidden;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+}
+.marquee .track {
+  display: flex; gap: 28px; white-space: nowrap;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+.marquee .dot { display: inline-block; width: 6px; height: 6px; background: currentColor; border-radius: 50%; vertical-align: middle; margin: 0 4px; }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee.dark { background: var(--brah-black); }
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .marquee .track { animation: none; }
+}

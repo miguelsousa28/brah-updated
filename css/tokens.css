@@ -1,0 +1,254 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   brah Design System — Core Tokens
+   Colors & typography. Source: BRAH Brandbook, MAR 2025.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* ─── Real brand fonts (uploaded by the user) ─── */
+@font-face {
+  font-family: "Lastik";
+  src: url("../fonts/Lastik.otf") format("opentype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Toms Handwritten";
+  src: url("../fonts/TomsHandwritten.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Work Sans";
+  src: url("../fonts/WorkSans.ttf") format("truetype-variations"),
+       url("../fonts/WorkSans.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Work Sans";
+  src: url("../fonts/WorkSans-Italic.ttf") format("truetype-variations"),
+       url("../fonts/WorkSans-Italic.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ─── Secondary brand fonts ─── */
+@font-face {
+  font-family: "Prata";
+  src: url("../fonts/Prata-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Schoolbell";
+  src: url("../fonts/Schoolbell-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Google Fonts fallbacks (loaded only as a safety net while brand
+       fonts cache) — they match the metrics of the real files closely
+       enough to avoid layout shift. Safe to delete after first paint. ─── */
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400..700&display=swap");
+
+:root {
+  /* ─── Color palette — exact values from the brandbook ─── */
+  --brah-tomato:        #F26B44;   /* primary accent — "tomate" */
+  --brah-yellow:        #F3BF46;   /* mustard yellow */
+  --brah-sky:           #8CABD9;   /* daylight sky */
+  --brah-lavender:      #D3D9EE;   /* tinted lavender */
+  --brah-black:         #000000;
+  --brah-peach:         #FAB189;   /* sunset peach */
+  --brah-pale-yellow:   #FBE895;   /* sand */
+  --brah-indigo:        #5B6BB2;   /* deep ocean */
+  --brah-cream:         #FFFCE4;   /* default page background */
+
+  /* Convenience neutrals — derived, not in the brandbook */
+  --brah-cream-2:       #FAF6D7;   /* slightly warmer cream */
+  --brah-ink:           #1A1408;   /* near-black with warmth, for body copy */
+  --brah-ink-soft:      #4A3F30;   /* secondary text */
+  --brah-line:          #E6DFB8;   /* divider on cream */
+  --brah-stamp-red:     #D9341E;   /* deeper tomato for stamps / hot accents */
+
+  /* ─── Semantic surfaces & text ─── */
+  --bg:                 var(--brah-cream);
+  --bg-alt:             var(--brah-cream-2);
+  --bg-inverse:         var(--brah-black);
+  --bg-hot:             var(--brah-tomato);
+  --bg-sky:             var(--brah-sky);
+
+  --fg-1:               var(--brah-ink);      /* body */
+  --fg-2:               var(--brah-ink-soft); /* captions, meta */
+  --fg-inverse:         var(--brah-cream);
+  --fg-hot:             var(--brah-tomato);
+  --fg-on-hot:          var(--brah-cream);
+
+  --line:               var(--brah-line);
+
+  /* ─── Typography stacks ─── */
+  --font-display:       "Lastik", "DM Serif Display", "Times New Roman", serif;
+  --font-display-alt:   "Prata", "Lastik", "DM Serif Display", serif;
+  --font-body:          "Work Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-hand:          "Toms Handwritten", "Schoolbell", "Caveat", "Bradley Hand", cursive;
+  --font-hand-alt:      "Schoolbell", "Toms Handwritten", "Caveat", cursive;
+  --font-wordmark:      "BrahWordmark", "Lastik", "Work Sans", system-ui, sans-serif; /* logo only */
+
+  /* ─── Type scale (1.250 — major third, tuned for editorial+poster mix) ─── */
+  --fs-mono:    13px;
+  --fs-meta:    12px;       /* tiny caps tag lines */
+  --fs-caption: 14px;
+  --fs-body:    16px;
+  --fs-lead:    19px;
+  --fs-h6:      18px;
+  --fs-h5:      22px;
+  --fs-h4:      28px;
+  --fs-h3:      40px;
+  --fs-h2:      64px;
+  --fs-h1:      96px;
+  --fs-poster: 160px;       /* full-bleed posters */
+
+  /* ─── Line heights ─── */
+  --lh-tight:   1.02;
+  --lh-snug:    1.12;
+  --lh-body:    1.45;
+  --lh-loose:   1.65;
+
+  /* ─── Tracking ─── */
+  --tr-tight:   -0.02em;
+  --tr-normal:   0;
+  --tr-meta:     0.12em;    /* all-caps captions */
+  --tr-stamp:    0.24em;    /* stamp / overline */
+
+  /* ─── Radii ─── */
+  --r-0: 0px;
+  --r-1: 4px;
+  --r-2: 10px;
+  --r-3: 18px;
+  --r-pill: 999px;
+
+  /* ─── Spacing scale ─── */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* ─── Shadows / elevation ─── */
+  --shadow-sticker: 0 2px 0 rgba(0,0,0,0.18), 0 6px 16px -6px rgba(0,0,0,0.25);
+  --shadow-card:    0 1px 0 rgba(0,0,0,0.06), 0 12px 32px -16px rgba(0,0,0,0.18);
+  --shadow-stamp:   inset 0 0 0 2px var(--brah-stamp-red);
+
+  /* ─── Motion ─── */
+  --ease-out:    cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.5, 1.6, 0.4, 1);
+  --t-fast:      120ms;
+  --t-base:      220ms;
+  --t-slow:      420ms;
+}
+
+/* ─── Semantic element styles ─── */
+html, body { background: var(--bg); color: var(--fg-1); }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--fg-1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--fs-h1); line-height: 0.95; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); }
+h4 { font-size: var(--fs-h4); line-height: var(--lh-snug); }
+h5 { font-size: var(--fs-h5); line-height: var(--lh-snug); }
+h6 {
+  font-family: var(--font-body);
+  font-size: var(--fs-h6);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+
+p { margin: 0 0 var(--s-4); text-wrap: pretty; }
+
+.lead {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+  color: var(--fg-1);
+}
+
+/* All-caps captions used as repeating taglines / metadata strips */
+.meta, .overline {
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tr-meta);
+  color: var(--fg-1);
+}
+.stamp {
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tr-stamp);
+  color: var(--brah-stamp-red);
+}
+
+/* Handwritten accents — sticker copy, "open everyday" etc. */
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* Posters/big copy */
+.poster {
+  font-family: var(--font-display);
+  font-size: var(--fs-poster);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+}
+
+/* Subtle paper grain — apply to surfaces that want the "printed" feel */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  z-index: 1;
+}
+
+/* Selection */
+::selection { background: var(--brah-tomato); color: var(--brah-cream); }

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>brah — Plano de Restruturação</title>
+<link rel="stylesheet" href="css/tokens.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--brah-cream); color: var(--brah-ink); font-family: var(--font-body); }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 80px 32px 120px; }
+  .meta { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brah-stamp-red); }
+  h1 { font-family: var(--font-display); font-size: clamp(56px, 8vw, 120px); line-height: 0.92; letter-spacing: -0.03em; margin: 16px 0 24px; }
+  h2 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 48px); line-height: 1; letter-spacing: -0.02em; margin: 56px 0 16px; }
+  h3 { font-family: var(--font-display); font-size: 26px; margin: 32px 0 10px; line-height: 1.1; }
+  p, li { font-size: 17px; line-height: 1.65; color: var(--brah-ink); }
+  ul, ol { padding-left: 22px; margin: 8px 0 16px; }
+  li { margin-bottom: 8px; }
+  .lede { font-family: var(--font-display); font-style: italic; font-size: 26px; line-height: 1.35; color: var(--brah-ink-soft); margin: 0 0 32px; }
+  hr { border: none; border-top: 1px solid var(--brah-line); margin: 56px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0 24px; font-size: 14px; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--brah-line); vertical-align: top; }
+  th { background: var(--brah-cream-2); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; }
+  code { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 14px; background: var(--brah-cream-2); padding: 2px 6px; }
+  .stamp { display: inline-block; border: 2px solid var(--brah-stamp-red); color: var(--brah-stamp-red); padding: 4px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; }
+  .callout { background: var(--brah-cream-2); border-left: 4px solid var(--brah-tomato); padding: 20px 24px; margin: 24px 0; font-size: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .card { border: 1px solid var(--brah-line); padding: 20px; background: var(--brah-cream); }
+  .card h4 { font-family: var(--font-display); margin: 0 0 8px; font-size: 24px; line-height: 1; }
+  .card .l { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brah-stamp-red); font-weight: 700; }
+  .back { display: inline-block; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; border-bottom: 1.5px solid var(--brah-ink); padding-bottom: 2px; text-decoration: none; color: var(--brah-ink); }
+  .topnav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .pill { display: inline-block; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; padding: 4px 10px; background: var(--brah-black); color: var(--brah-cream); margin-right: 6px; }
+  .pill.keep { background: #146b3a; }
+  .pill.kill { background: var(--brah-stamp-red); }
+  .pill.new  { background: var(--brah-tomato); }
+  .pill.move { background: #5B6BB2; }
+  em { font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topnav">
+  <a href="index.html" class="back">← back to hub</a>
+  <span class="meta">PLANO · v1 · MAY 2026</span>
+</div>
+
+<span class="stamp">REESTRUTURAÇÃO DO SITE</span>
+<h1><em>everybody needs a brah</em> — but the site needs work.</h1>
+<p class="lede">Resumo do plano para o redesign do brah-site, baseado nas notas da reunião com o cliente e nas 3 referências (Vício, Street Smash, Honest Greens). Acompanha o protótipo clicável onde podes comparar as 3 direções lado a lado.</p>
+
+<hr>
+
+<h2>1. O que vamos arrumar</h2>
+<p>Notas do cliente, traduzidas em decisões:</p>
+<table>
+  <thead><tr><th>Pedido</th><th>Decisão</th></tr></thead>
+  <tbody>
+    <tr><td>tirar preços</td><td>O menu deixa de ter preços. Cada burger fica com nome + ingredientes + tag (the og, best seller, loaded, vegan). CTA "ask in store" ou "see in store".</td></tr>
+    <tr><td>mais minimalista</td><td>Menos secções, menos ícones decorativos, menos preenchimento. Tipografia faz o trabalho pesado. Slider de minimalismo escolhido: <strong>5/10</strong> — mantemos personalidade (handwriting, stamps), mas com mais ar.</td></tr>
+    <tr><td>street smash + vício</td><td>Apresentadas as 3 direções no protótipo. Recomendação final em §5.</td></tr>
+    <tr><td>instagram + facebook</td><td>Presentes em 3 sítios: meta strip (topo), header, footer. Secção dedicada com feed do IG (6 tiles).</td></tr>
+    <tr><td>tirar animação hambúrguer a abrir</td><td>Removida. Substituída por uma <strong>foto estática</strong> de produto no hero (cheese handoff). Mais rápido, mais elegante, sem custos de loading.</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>2. Nova arquitetura de informação</h2>
+<p>Site multi-página (não one-pager). 7 páginas, todas acessíveis pelo header. PT/EN com toggle no topo direito.</p>
+
+<table>
+  <thead><tr><th>Página</th><th>Estado</th><th>O que tem</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Home</strong></td><td><span class="pill new">redesenhada</span></td><td>Hero + collection preview + story preview + (after dark) + Instagram feed. Sem animação de hambúrguer.</td></tr>
+    <tr><td><strong>Menu</strong></td><td><span class="pill new">redesenhada</span></td><td>4 burgers + sides + drinks. <em>Sem preços.</em> Foto + nome + tag + ingredientes.</td></tr>
+    <tr><td><strong>Our story</strong> / <em>A nossa história</em></td><td><span class="pill keep">mantida</span></td><td>Foto storefront + quote + 2 parágrafos + mini-galeria.</td></tr>
+    <tr><td><strong>Visit us</strong> / <em>Visita-nos</em></td><td><span class="pill keep">mantida</span></td><td>Morada + horários + mapa estilizado + telefone.</td></tr>
+    <tr><td><strong>Events</strong> / <em>Eventos</em></td><td><span class="pill new">nova</span></td><td>Pop-ups, colabs (Nadador, Kaloha, Tutto Passa), surf comps. Estilo poster.</td></tr>
+    <tr><td><strong>Gallery</strong> / <em>Galeria</em></td><td><span class="pill new">nova</span></td><td>Lifestyle + produto. 12 fotos. Mosaico ou collage.</td></tr>
+    <tr><td><strong>Catering</strong></td><td><span class="pill new">nova</span></td><td>Tabuleiros escritório, eventos privados, casamentos. CTA email/WhatsApp.</td></tr>
+    <tr><td><em>Loja online merch</em></td><td><span class="pill kill">não agora</span></td><td>Deixar para v2. Não há produtos prontos para vender.</td></tr>
+    <tr><td><em>Reservas</em></td><td><span class="pill kill">não</span></td><td>Smash burger spot — walk-in. Só telefone para grupos.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+<strong>Header (todas as páginas):</strong> wordmark à esquerda · nav central · IG / FB / toggle PT-EN à direita · CTA "see the menu".<br>
+<strong>Footer (todas as páginas):</strong> wordmark grande + handwritten "gone to have a brah" + 4 colunas (visit, follow, say hi, address) + Instagram + Facebook + email + telefone.
+</div>
+
+<hr>
+
+<h2>3. Sistema visual aplicado</h2>
+<p>Tudo enraizado no <strong>brah Design System</strong> que já existe. Cores, fontes, espaçamento, todos via tokens (<code>--brah-tomato</code>, <code>--font-display</code>, etc.).</p>
+<ul>
+  <li><strong>Tipografia</strong> — Lastik (display, todos os headlines), Work Sans (corpo), Toms Handwritten (notas de margem, abertura "open everyday"). Apenas <em>uma</em> display font por superfície.</li>
+  <li><strong>Cores</strong> — Cream (#FFFCE4) como background base. Black para texto. Tomato (#F26B44) para stamps e CTA. Sky / Lavender / Peach apenas como acentos.</li>
+  <li><strong>Layout</strong> — Cantos a 90° (sem rounded corners), exceto stickers (18px). 1px black hairline entre secções. Sem sombras suaves, sem glassmorphism.</li>
+  <li><strong>Tom de copy</strong> — segunda pessoa, em <em>lowercase</em>. <em>"brah"</em> sempre minúsculo. Headlines em EN; informação prática em PT (com toggle global). Aspas curvas <em>"…"</em>.</li>
+  <li><strong>Iconografia</strong> — quase nenhum. Sun glyph como acento ocasional. Sem emoji.</li>
+</ul>
+
+<hr>
+
+<h2>4. Três direções (no protótipo)</h2>
+<div class="grid-2">
+  <div class="card">
+    <div class="l">DIRECTION A · Vício</div>
+    <h4>Confident, burger-first.</h4>
+    <p>Tipografia gigante, foto de produto a ocupar metade do hero. Lista vertical de burgers com fade entre fotos no hover. Cream + black + tomato. Menu cinematográfico em alternado esquerda/direita. Layout limpo, sem chaos.<br><strong>Best for:</strong> público adulto, primeira impressão de marca séria.</p>
+  </div>
+  <div class="card">
+    <div class="l">DIRECTION B · Street Smash</div>
+    <h4>Poster, raw, evento.</h4>
+    <p>Sky/lavender backgrounds, stamps por todo o lado, stickers rodados, sun glyph a girar, sombras hard offset. Eventos com indigo + tomato. Galeria collage. Mais "energia de cartaz" que website.<br><strong>Best for:</strong> falar com surfistas, jovens, pessoal dos pop-ups.</p>
+  </div>
+  <div class="card" style="background: var(--brah-tomato); color: var(--brah-cream); border-color: var(--brah-tomato);">
+    <div class="l" style="color: var(--brah-cream); opacity: 0.85;">DIRECTION C · BLEND</div>
+    <h4 style="color: var(--brah-cream);">Híbrido — recomendado.</h4>
+    <p style="color: var(--brah-cream);">Base limpa do <strong>Vício</strong> com acentos do <strong>Street Smash</strong>: stamps, notas escritas à mão coloridas, sombras hard-offset nos cards de produto, galeria com fotos rodadas. <strong>A página de Eventos vai em modo Street Smash completo</strong> (indigo + tomato). Mantém a marca séria onde conta, e solta o lado poster onde faz sentido.</p>
+  </div>
+  <div class="card">
+    <div class="l">EXTRAS · em todas as 3 direções</div>
+    <h4>Reviews · Story · Cinematic menu.</h4>
+    <p>Adicionei a todas: secção <strong>Reviews mock</strong> (Google / TripAdvisor / Instagram), <strong>página de Story enriquecida</strong> (cronologia, pull quote), <strong>menu cinematográfico</strong> (alternado, fig. captions), microinterações (hover lifts, button press, focus rings tomato), e <strong>mobile responsive</strong>.</p>
+  </div>
+</div>
+
+<hr>
+
+<h2>5. O que muda em concreto vs. o site atual</h2>
+<ol>
+  <li><strong>Remover</strong> a animação do hambúrguer a abrir (<code>burger-scroll.js</code>). Substituir por foto estática no hero.</li>
+  <li><strong>Remover</strong> todos os preços do menu. Manter ingredientes e tags.</li>
+  <li><strong>Adicionar</strong> 4 páginas novas: <code>events.html</code>, <code>gallery.html</code>, <code>catering.html</code>, <code>story.html</code> (se ainda não tiveres).</li>
+  <li><strong>Adicionar</strong> toggle PT/EN global (estado guardado no <code>localStorage</code>).</li>
+  <li><strong>Adicionar</strong> meta strip no topo (morada · horário · IG · FB).</li>
+  <li><strong>Adicionar</strong> secção dedicada de Instagram (6 tiles, grid 6×1) em todas as páginas, antes do footer.</li>
+  <li><strong>Reforçar</strong> Instagram e Facebook em 3 sítios: meta strip + header + footer.</li>
+  <li><strong>Simplificar</strong> o header — só wordmark + 7 links + 1 CTA. Sem submenus, sem dropdowns.</li>
+  <li><strong>Migrar</strong> os tokens do design system (<code>colors_and_type.css</code>) e usar <code>var(--brah-*)</code> em todos os componentes.</li>
+</ol>
+
+<hr>
+
+<h2>6. Próximos passos</h2>
+<ol>
+  <li><strong>Hoje:</strong> abrir o <a href="prototype.html" style="border-bottom: 1.5px solid var(--brah-ink); padding-bottom: 1px;">protótipo</a>, alternar entre as 3 direções, decidir qual (ou mistura).</li>
+  <li><strong>Esta semana:</strong> validar conteúdo final (ingredientes corretos? eventos confirmados? fotos definitivas?).</li>
+  <li><strong>Próxima sprint:</strong> implementar a direção escolhida no repo <code>brah-site</code>. Fazer commit dos novos ficheiros. Atualizar <code>index.html</code>, <code>styles.css</code>, criar as 4 páginas novas.</li>
+  <li><strong>Antes de live:</strong> meta-tags OG (Facebook share), favicon, Google Analytics, sitemap. Testar em mobile.</li>
+</ol>
+
+<div class="callout">
+<strong>Notas técnicas para o Claude Code / dev:</strong><br>
+— Os ficheiros do protótipo (<code>src/*.jsx</code>) já estão modulares: cada direção é um ficheiro independente. Podem ser portados quase 1:1 para componentes do repo.<br>
+— Os tokens estão em <code>css/tokens.css</code> + <code>css/kit.css</code>, prontos para copiar para o repo.<br>
+— Os assets (fotos, logos, fontes) estão em <code>assets/</code> e <code>fonts/</code>, já com nomes consistentes.<br>
+— O toggle PT/EN é puro React state — para o site de produção, considerar guardar em <code>localStorage</code> ou usar URL params (<code>?lang=pt</code>).
+</div>
+
+<hr>
+
+<p style="text-align: center; font-family: var(--font-hand); font-size: 36px; line-height: 1; color: var(--brah-stamp-red); transform: rotate(-2deg); display: inline-block; margin: 32px 0 0;">
+Catch the wave — taste the smash.
+</p>
+
+</div>
+</body>
+</html>
