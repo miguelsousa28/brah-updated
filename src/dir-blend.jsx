@@ -109,7 +109,7 @@ function BlendHome({ lang, onNav }) {
               {H.sub[lang]}
             </HandNote>
             <div style={{display: "flex", gap: 14, marginTop: 36, flexWrap: "wrap"}}>
-              <a href={window.BRAH.brand.ubereats} target="_blank" rel="noreferrer" style={{...btnB, textDecoration: "none"}}>{lang === "en" ? "order on uber eats" : "pede no uber eats"} →</a>
+              <button onClick={() => onNav("menu")} style={btnB}>{lang === "en" ? "the menu" : "o menu"} →</button>
               <button onClick={() => onNav("visit")} style={btnBghost}>{lang === "en" ? "find us" : "encontra-nos"}</button>
             </div>
           </div>
