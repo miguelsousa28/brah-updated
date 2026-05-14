@@ -75,6 +75,10 @@
     /* HardCard — remover shadow offset no mobile para não transbordar */
     div[style*="box-shadow"][style*="var(--brah-black)"] { box-shadow: 3px 3px 0 var(--brah-black) !important; }
 
+    /* acompanhamentos / sides — garantir que ficam dentro do ecrã */
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    section[style*="padding: 0 32px 96px"] { padding: 0 12px 48px !important; overflow: hidden; }
+
     /* menu page — garantir que imagem vem sempre primeiro */
     div[style*="order: 2"] { order: 1 !important; }
     div[style*="order: 1"][style*="font-family"] { order: 2 !important; }
