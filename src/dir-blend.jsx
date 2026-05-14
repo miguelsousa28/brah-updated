@@ -26,11 +26,30 @@ function BlendSite({ page, lang, onNav, onLang }) {
   );
 }
 
-/* ─── Header — desktop nav + mobile hamburger menu ─── */
+/* ─── Header — desktop nav + mobile hamburger (DOM toggle, sem React state) ─── */
 function BlendHeader({ page, onNav, lang }) {
   const items = ["home", "menu", "story", "events", "gallery", "catering", "visit"];
-  const [open, setOpen] = useStateB(false);
-  const go = (id) => { onNav(id); setOpen(false); };
+
+  const toggleMenu = () => {
+    const nav = document.getElementById("brah-mobile-nav");
+    const bars = document.querySelectorAll(".brah-bar");
+    if (!nav) return;
+    const isOpen = nav.style.display === "block";
+    nav.style.display = isOpen ? "none" : "block";
+    if (bars[0]) bars[0].style.transform = isOpen ? "none" : "rotate(45deg) translate(5px,5px)";
+    if (bars[1]) bars[1].style.opacity = isOpen ? "1" : "0";
+    if (bars[2]) bars[2].style.transform = isOpen ? "none" : "rotate(-45deg) translate(5px,-5px)";
+  };
+
+  const go = (id) => {
+    onNav(id);
+    const nav = document.getElementById("brah-mobile-nav");
+    const bars = document.querySelectorAll(".brah-bar");
+    if (nav) nav.style.display = "none";
+    if (bars[0]) bars[0].style.transform = "none";
+    if (bars[1]) bars[1].style.opacity = "1";
+    if (bars[2]) bars[2].style.transform = "none";
+  };
 
   return (
     <header style={{background: "var(--brah-cream)", borderBottom: "1px solid var(--brah-ink)", position: "sticky", top: 0, zIndex: 30}}>
@@ -51,25 +70,23 @@ function BlendHeader({ page, onNav, lang }) {
         </nav>
         <div style={{display: "flex", gap: 10, alignItems: "center"}}>
           <button onClick={() => go("menu")} className="brah-desktop-nav" style={btnB}>{lang === "en" ? "the menu" : "o menu"} →</button>
-          <button onClick={() => setOpen(o => !o)} className="brah-mobile-burger" aria-label="menu" style={{background:"none",border:"none",cursor:"pointer",padding:6,flexDirection:"column",gap:5}}>
-            <span style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s",transform:open?"rotate(45deg) translate(5px,5px)":"none"}}/>
-            <span style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s",opacity:open?0:1}}/>
-            <span style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s",transform:open?"rotate(-45deg) translate(5px,-5px)":"none"}}/>
+          <button onClick={toggleMenu} className="brah-mobile-burger" aria-label="menu" style={{background:"none",border:"none",cursor:"pointer",padding:8,flexDirection:"column",gap:5}}>
+            <span className="brah-bar" style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s"}}/>
+            <span className="brah-bar" style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s"}}/>
+            <span className="brah-bar" style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s"}}/>
           </button>
         </div>
       </div>
-      {open && (
-        <div style={{background:"var(--brah-cream)",borderTop:"1px solid var(--brah-line)",padding:"12px 24px 24px"}}>
-          {items.map(id => (
-            <a key={id} onClick={() => go(id)} style={{display:"block",padding:"12px 0",fontSize:17,fontWeight:700,textTransform:"lowercase",cursor:"pointer",color:page===id?"var(--brah-stamp-red)":"var(--brah-ink)",borderBottom:"1px solid var(--brah-line)"}}>
-              {window.BRAH.nav[id][lang]}
-            </a>
-          ))}
-          <a href={window.BRAH.brand.ubereats} target="_blank" rel="noreferrer" style={{...btnB,display:"inline-flex",marginTop:18,textDecoration:"none"}}>
-            {lang === "en" ? "order on uber eats" : "pede no uber eats"} →
+      <div id="brah-mobile-nav" style={{display:"none",background:"var(--brah-cream)",borderTop:"1px solid var(--brah-line)",padding:"12px 24px 24px"}}>
+        {items.map(id => (
+          <a key={id} onClick={() => go(id)} style={{display:"block",padding:"12px 0",fontSize:17,fontWeight:700,textTransform:"lowercase",cursor:"pointer",color:page===id?"var(--brah-stamp-red)":"var(--brah-ink)",borderBottom:"1px solid var(--brah-line)"}}>
+            {window.BRAH.nav[id][lang]}
           </a>
-        </div>
-      )}
+        ))}
+        <a href={window.BRAH.brand.ubereats} target="_blank" rel="noreferrer" style={{...btnB,display:"inline-flex",marginTop:18,textDecoration:"none"}}>
+          {lang === "en" ? "order on uber eats" : "pede no uber eats"} →
+        </a>
+      </div>
     </header>
   );
 }
