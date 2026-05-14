@@ -3,191 +3,53 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>brah — Hub</title>
+<title>brah · smash burger · ericeira</title>
 <link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/kit.css">
 <style>
+  html, body { background: var(--brah-cream); margin: 0; scroll-behavior: smooth; }
+  body { font-family: var(--font-body); color: var(--brah-ink); }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--brah-cream); color: var(--brah-ink); font-family: var(--font-body); }
-  .wrap { max-width: 1320px; margin: 0 auto; padding: 64px 32px 96px; }
-  header.top {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-bottom: 24px; border-bottom: 1px solid var(--brah-ink); margin-bottom: 56px;
+  @keyframes brah-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes brah-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333%); } }
+  button, a { font-family: inherit; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--brah-tomato); color: var(--brah-cream); }
+  :focus-visible { outline: 2px solid var(--brah-tomato); outline-offset: 3px; }
+  button:focus, a:focus { outline: none; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--brah-tomato); outline-offset: 3px; }
+  button { transition: transform 90ms var(--ease-out), box-shadow var(--t-base) var(--ease-out), background var(--t-base) var(--ease-out); }
+  button:active { transform: translateY(1px) scale(0.985); }
+  @media (max-width: 600px) {
+    div[style*="grid-template-columns: repeat(2, 1fr)"],
+    div[style*="grid-template-columns: repeat(3, 1fr)"],
+    div[style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: 1fr !important; }
+    div[style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
   }
-  .word { height: 32px; }
-  .word img { height: 100%; display: block; }
-  .meta { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brah-stamp-red); }
-  h1 { font-family: var(--font-display); font-size: clamp(56px, 9vw, 160px); line-height: 0.88; letter-spacing: -0.035em; margin: 16px 0 12px; }
-  h1 em { color: var(--brah-stamp-red); font-style: italic; }
-  .lede { font-family: var(--font-display); font-style: italic; font-size: clamp(22px, 2.4vw, 32px); line-height: 1.3; color: var(--brah-ink-soft); max-width: 800px; margin: 0 0 56px; }
-
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 64px; }
-  .card {
-    display: block; padding: 32px; border: 1px solid var(--brah-ink);
-    background: var(--brah-cream); color: inherit; text-decoration: none;
-    transition: transform var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
-  .card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--brah-ink); }
-  .card .l { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brah-stamp-red); font-weight: 700; }
-  .card h2 { font-family: var(--font-display); font-size: clamp(36px, 4vw, 56px); line-height: 0.96; letter-spacing: -0.02em; margin: 10px 0 12px; }
-  .card p { font-size: 16px; line-height: 1.55; color: var(--brah-ink-soft); margin: 0 0 20px; }
-  .card .go { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; }
-
-  .dirs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 64px; }
-  .dir {
-    border: 1px solid var(--brah-ink); text-decoration: none; color: inherit;
-    display: block; overflow: hidden; transition: transform var(--t-base) var(--ease-out), box-shadow var(--t-base) var(--ease-out);
-    background: var(--brah-cream);
-  }
-  .dir:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--brah-ink); }
-  .dir .thumb { aspect-ratio: 4/3; position: relative; overflow: hidden; border-bottom: 1px solid var(--brah-ink); }
-  .dir .body { padding: 16px 18px; }
-  .dir .l { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brah-stamp-red); font-weight: 700; }
-  .dir h3 { font-family: var(--font-display); font-size: 30px; line-height: 1; margin: 6px 0 6px; }
-  .dir p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--brah-ink-soft); }
-
-  /* Mini direction renders */
-  .mini-vicio { background: var(--brah-cream); display: flex; height: 100%; }
-  .mini-vicio .l { flex: 1.2; padding: 18px; display: flex; flex-direction: column; justify-content: center; }
-  .mini-vicio .l .h { font-family: var(--font-display); font-size: 28px; line-height: 0.9; letter-spacing: -0.02em; }
-  .mini-vicio .l .h em { color: var(--brah-stamp-red); font-style: italic; }
-  .mini-vicio .l .sub { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brah-stamp-red); font-weight: 700; margin-bottom: 6px; }
-  .mini-vicio .r { flex: 1; background: url('assets/product-cheese-handoff.png') center/cover; }
-
-  .mini-street { background: var(--brah-sky); position: relative; display: flex; align-items: center; justify-content: center; height: 100%; overflow: hidden; }
-  .mini-street .sun { position: absolute; top: 8px; right: 10px; width: 40px; height: 40px; border-radius: 50%; background: var(--brah-stamp-red); opacity: 0.85; }
-  .mini-street .pn { font-family: var(--font-display); font-size: 38px; line-height: 0.86; letter-spacing: -0.03em; text-align: center; }
-  .mini-street .pn .h { font-family: var(--font-hand); color: var(--brah-stamp-red); font-size: 22px; transform: rotate(-3deg); display: inline-block; margin-top: 8px; }
-  .mini-street .stamp { position: absolute; bottom: 10px; left: 10px; border: 2px solid var(--brah-black); background: var(--brah-cream); padding: 3px 8px; font-size: 9px; letter-spacing: 0.22em; font-weight: 800; text-transform: uppercase; }
-
-  .mini-hg { background: #2a2a2a; position: relative; overflow: hidden; height: 100%; background: url('assets/lifestyle-storefront.jpg') center/cover; }
-  .mini-hg::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.55)); }
-  .mini-hg .copy { position: absolute; bottom: 12px; left: 14px; right: 14px; color: var(--brah-cream); z-index: 1; }
-  .mini-hg .copy .sub { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.85; }
-  .mini-hg .copy .h { font-family: var(--font-display-alt); font-style: italic; font-size: 26px; line-height: 1; margin-top: 4px; }
-
-  /* Blend mini render */
-  .mini-blend { background: var(--brah-cream); display: flex; height: 100%; padding: 14px 12px; align-items: center; gap: 10px; position: relative; }
-  .mini-blend .l-side { flex: 1.2; }
-  .mini-blend .l-side .h { font-family: var(--font-display); font-size: 28px; line-height: 0.9; letter-spacing: -0.02em; }
-  .mini-blend .l-side .h em { color: var(--brah-stamp-red); font-style: italic; }
-  .mini-blend .l-side .sub { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brah-stamp-red); font-weight: 800; margin-bottom: 6px; }
-  .mini-blend .l-side .hand-mini { font-family: var(--font-hand); color: var(--brah-stamp-red); font-size: 16px; transform: rotate(-3deg); display: inline-block; margin-top: 6px; }
-  .mini-blend .r-side { flex: 1; position: relative; }
-  .mini-blend .r-side .r-card { aspect-ratio: 4/5; background: url('assets/product-cheese-handoff.png') center/cover; border: 2px solid var(--brah-black); box-shadow: 4px 4px 0 var(--brah-black); }
-  .mini-blend .r-side .stamp-mini { position: absolute; bottom: -6px; right: -6px; transform: rotate(-4deg); background: var(--brah-cream); border: 1.5px solid var(--brah-stamp-red); color: var(--brah-stamp-red); padding: 2px 6px; font-size: 7px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
-
-  .hand-note { font-family: var(--font-hand); font-size: 32px; line-height: 1; color: var(--brah-stamp-red); transform: rotate(-2deg); display: inline-block; margin-top: 24px; }
-
-  footer { margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--brah-line); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brah-ink-soft); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-
-  .badges { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 32px; }
-  .badge { display: inline-block; border: 2px solid var(--brah-stamp-red); color: var(--brah-stamp-red); padding: 4px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div id="root"></div>
 
-  <header class="top">
-    <span class="word"><img src="assets/logo-brah-wordmark.png" alt="brah"></span>
-    <span class="meta">SITE REDESIGN · MAY 2026</span>
-  </header>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-  <div class="badges">
-    <span class="badge">redesign visual</span>
-    <span class="badge">nova estrutura</span>
-    <span class="badge">3 direções</span>
-    <span class="badge">PT ⇄ EN</span>
-  </div>
-
-  <h1>Plano + protótipo<br><em>do novo brah-site.</em></h1>
-  <p class="lede">Reestruturei o site com base nas notas da reunião com o cliente e nas três referências (Vício, Street Smash, Honest Greens). Em baixo: o plano escrito e o protótipo clicável onde podes alternar entre as 3 direções, PT⇄EN, e navegar pelas 7 páginas.</p>
-
-  <div class="cards">
-    <a href="plano.html" class="card">
-      <div class="l">DOC · 01</div>
-      <h2>Plano de restruturação</h2>
-      <p>O que muda vs. site atual, nova arquitetura de informação (7 páginas), sistema visual aplicado, comparação das 3 direções e próximos passos para o dev.</p>
-      <span class="go">read the plan →</span>
-    </a>
-    <a href="prototype.html" class="card" style="background: var(--brah-black); color: var(--brah-cream); border-color: var(--brah-black);">
-      <div class="l" style="color: var(--brah-tomato);">PROTOTYPE · 02</div>
-      <h2 style="color: var(--brah-cream);">Protótipo clicável</h2>
-      <p style="color: rgba(255,252,228,0.78);">3 direções (Vício / Street Smash / Honest Greens) · toggle PT⇄EN · 7 páginas navegáveis · IG e FB em 3 sítios. Usa o pill flutuante no topo para alternar direção.</p>
-      <span class="go" style="color: var(--brah-tomato);">open the prototype →</span>
-    </a>
-  </div>
-
-  <span class="meta">THE THREE DIRECTIONS</span>
-  <h2 style="font-family: var(--font-display); font-size: clamp(36px, 4.5vw, 64px); line-height: 1; letter-spacing: -0.02em; margin: 12px 0 32px;">Pick one. Or mix two.</h2>
-
-  <div class="dirs">
-    <a href="prototype.html#dir=vicio&page=home&lang=en" class="dir">
-      <div class="thumb">
-        <div class="mini-vicio">
-          <div class="l">
-            <div class="sub">FROM ERICEIRA</div>
-            <div class="h">everybody<br>needs a<br><em>brah.</em></div>
-          </div>
-          <div class="r"></div>
-        </div>
-      </div>
-      <div class="body">
-        <div class="l">DIRECTION A</div>
-        <h3>Vício-leaning</h3>
-        <p>Product-first. Big serif. Confident. Cream + black + tomato. Layout limpo, sem floreados.</p>
-      </div>
-    </a>
-
-    <a href="prototype.html#dir=street&page=home&lang=en" class="dir">
-      <div class="thumb">
-        <div class="mini-street">
-          <div class="sun"></div>
-          <div class="pn">
-            everybody<br>needs a brah.
-            <div class="h">catch the wave.</div>
-          </div>
-          <div class="stamp">EST. 2024 · ERICEIRA</div>
-        </div>
-      </div>
-      <div class="body">
-        <div class="l">DIRECTION B</div>
-        <h3>Street Smash-leaning</h3>
-        <p>Poster. Raw. Event energy. Stamps, stickers, sun a girar, sky/lavender. Eventos como página central.</p>
-      </div>
-    </a>
-
-    <a href="prototype.html#dir=blend&page=home&lang=en" class="dir">
-      <div class="thumb">
-        <div class="mini-blend">
-          <div class="l-side">
-            <div class="sub">FROM ERICEIRA</div>
-            <div class="h">everybody<br>needs a<br><em>brah.</em></div>
-            <div class="hand-mini">catch the wave — taste the smash.</div>
-          </div>
-          <div class="r-side">
-            <div class="r-card"></div>
-            <div class="stamp-mini">OPEN 10:00 — 23:30</div>
-          </div>
-        </div>
-      </div>
-      <div class="body">
-        <div class="l">DIRECTION C · <span style="color: var(--brah-tomato);">recommended</span></div>
-        <h3>Blend</h3>
-        <p>Vício clean base + stamps, notas à mão coloridas, sombras hard offset. Events page em modo Street Smash total. O melhor dos dois.</p>
-      </div>
-    </a>
-  </div>
-
-  <div class="hand-note">Try toggling EN ⇄ PT inside the prototype.</div>
-
-  <footer>
-    <span>brah · everybody needs a brah · Ericeira</span>
-    <span>v1 · {today}</span>
-  </footer>
-</div>
-
-<script>
-  document.querySelector('footer span:last-child').textContent = "v1 · " + new Date().toLocaleDateString('pt-PT', { day:'2-digit', month:'short', year:'numeric' });
+<script src="src/data.js"></script>
+<script type="text/babel" src="src/atoms.jsx"></script>
+<script type="text/babel" src="src/dir-blend.jsx"></script>
+<script type="text/babel">
+  const { useState: useStateApp } = React;
+  function BrahApp() {
+    const [page, setPage] = useStateApp("home");
+    const [lang, setLang] = useStateApp("pt");
+    const onNav = (id) => { setPage(id === "order" ? "menu" : id); window.scrollTo({ top: 0 }); };
+    return <BlendSite page={page} lang={lang} onNav={onNav} onLang={setLang} />;
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<BrahApp />);
 </script>
 </body>
 </html>
