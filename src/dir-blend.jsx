@@ -197,7 +197,7 @@ function BlendCollection({ lang, onNav }) {
             {products.map((p, i) => (
               <li key={p.id}
                   onMouseEnter={() => setActive(i)}
-                  onClick={() => window.open(p.ubereats || window.BRAH.brand.ubereats, "_blank")}
+                  onClick={() => onNav("menu")}
                   style={{
                     borderBottom: "1px solid var(--brah-ink)",
                     padding: "28px 0",
