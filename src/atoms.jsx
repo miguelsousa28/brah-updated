@@ -19,14 +19,14 @@ function MetaBar({ variant = "cream", lang, onLang }) {
   const line = variant === "cream" ? "var(--brah-line)" : "rgba(255,252,228,0.18)";
   return (
     <div style={{background: bg, color: fg, borderBottom: `1px solid ${line}`, fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase"}}>
-      <div style={{maxWidth: 1600, margin: "0 auto", padding: "9px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, flexWrap: "wrap"}}>
-        <span>BRAH · ERICEIRA · PORTUGAL</span>
-        <span style={{opacity: 0.75}}>{lang === "en" ? "OPEN EVERYDAY · 10:00 — 23:30" : "ABERTO TODOS OS DIAS · 10:00 — 23:30"}</span>
-        <span style={{display: "flex", gap: 14, alignItems: "center"}}>
-          <a href="#" style={{textDecoration: "none", color: "inherit"}} onClick={e=>e.preventDefault()}>IG · @brah.ericeira</a>
-          <span style={{opacity: 0.4}}>·</span>
-          <a href="#" style={{textDecoration: "none", color: "inherit"}} onClick={e=>e.preventDefault()}>FB · brah.ericeira</a>
-          <span style={{opacity: 0.4}}>·</span>
+      <div className="brah-metabar-inner" style={{maxWidth: 1600, margin: "0 auto", padding: "9px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, flexWrap: "wrap"}}>
+        <span className="brah-metabar-text">BRAH · ERICEIRA · PORTUGAL</span>
+        <span className="brah-metabar-text" style={{opacity: 0.75}}>{lang === "en" ? "OPEN EVERYDAY · 10:00 — 23:30" : "ABERTO TODOS OS DIAS · 10:00 — 23:30"}</span>
+        <span style={{display: "flex", gap: 12, alignItems: "center"}}>
+          <a href={window.BRAH?.brand?.instagram || "https://instagram.com/brah_smashburger"} target="_blank" rel="noreferrer" style={{textDecoration: "none", color: "inherit", display: "flex", alignItems: "center"}} title="@brah_smashburger">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <span style={{opacity: 0.3}}>·</span>
           <LangPill lang={lang} onLang={onLang} variant={variant}/>
         </span>
       </div>
@@ -35,16 +35,19 @@ function MetaBar({ variant = "cream", lang, onLang }) {
 }
 
 function LangPill({ lang, onLang, variant }) {
-  const onCream = variant === "cream" || variant == null;
+  const isDark = variant === "dark" || variant === "tomato";
+  const activeBg  = isDark ? "var(--brah-cream)"  : "var(--brah-ink)";
+  const activeFg  = isDark ? "var(--brah-black)"  : "var(--brah-cream)";
+  const borderCol = isDark ? "var(--brah-cream)"  : "var(--brah-ink)";
   return (
-    <span style={{display: "inline-flex", border: `1px solid currentColor`, padding: "1px"}}>
+    <span style={{display: "inline-flex", border: `1px solid ${borderCol}`, padding: "1px"}}>
       {["en", "pt"].map(L => (
         <button
           key={L}
           onClick={() => onLang(L)}
           style={{
-            background: lang === L ? "currentColor" : "transparent",
-            color: lang === L ? (onCream ? "var(--brah-cream)" : "var(--brah-black)") : "inherit",
+            background: lang === L ? activeBg : "transparent",
+            color: lang === L ? activeFg : "inherit",
             border: "none",
             font: "inherit",
             padding: "3px 8px",
@@ -146,17 +149,15 @@ function Footer({ lang, variant = "dark", onNav }) {
           <div>
             <div style={overStyle(isDark ? "rgba(255,252,228,0.5)" : "var(--brah-ink-soft)")}>{labels.follow[lang]}</div>
             <ul style={ulReset()}>
-              <li><a href="#" onClick={e=>e.preventDefault()} style={{textDecoration: "none", color: "inherit"}}>instagram · @brah.ericeira</a></li>
-              <li><a href="#" onClick={e=>e.preventDefault()} style={{textDecoration: "none", color: "inherit"}}>facebook · brah.ericeira</a></li>
-              <li><a href="#" onClick={e=>e.preventDefault()} style={{textDecoration: "none", color: "inherit"}}>tiktok · @brah</a></li>
+              <li><a href={window.BRAH.brand.instagram} target="_blank" rel="noreferrer" style={{textDecoration: "none", color: "inherit"}}>instagram · @brah_smashburger</a></li>
+              <li><a href={window.BRAH.brand.ubereats} target="_blank" rel="noreferrer" style={{textDecoration: "none", color: "inherit"}}>uber eats · pede já</a></li>
             </ul>
           </div>
           <div>
             <div style={overStyle(isDark ? "rgba(255,252,228,0.5)" : "var(--brah-ink-soft)")}>{labels.sayHi[lang]}</div>
             <ul style={ulReset()}>
-              <li>brah@ericeira.pt</li>
-              <li>+351 261 000 000</li>
-              <li>Rua dos Ferreiros 3A</li>
+              <li><a href={`tel:${window.BRAH.brand.phone.replace(/\s/g,'')}`} style={{textDecoration: "none", color: "inherit"}}>{window.BRAH.brand.phone}</a></li>
+              <li>Rua dos Ferreiros 3A · Ericeira</li>
             </ul>
           </div>
         </div>
@@ -197,10 +198,10 @@ function InstagramFeed({ lang, variant = "cream" }) {
           <div>
             <div style={overStyle("var(--brah-stamp-red)")}>{lang === "en" ? "FROM THE FEED" : "DO INSTAGRAM"}</div>
             <h3 style={{fontFamily: "var(--font-display)", fontSize: "clamp(36px, 4.5vw, 64px)", lineHeight: 0.98, margin: "12px 0 0", letterSpacing: "-0.02em"}}>
-              @brah.ericeira
+              @brah_smashburger
             </h3>
           </div>
-          <a href="#" onClick={e=>e.preventDefault()} className="btn btn-dark" style={{padding: "12px 18px", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", textDecoration: "none"}}>
+          <a href={window.BRAH?.brand?.instagram || "https://instagram.com/brah_smashburger"} target="_blank" rel="noreferrer" className="btn btn-dark" style={{padding: "12px 18px", fontSize: 12, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", textDecoration: "none"}}>
             {lang === "en" ? "follow on instagram" : "segue no instagram"} →
           </a>
         </div>
@@ -309,59 +310,152 @@ function HardCard({ children, bg = "var(--brah-cream)", offset = 6, color = "var
 }
 
 /* ─────────────────────────────────────────────────────────────────────
-   Reviews — Google review-style cards. Variant: clean or hard-shadow.
+   Reviews — auto-scrolling carousel. Fetches from Google Places API if
+   BRAH_GOOGLE_PLACE_ID is set on window; falls back to static seed data.
    ───────────────────────────────────────────────────────────────────── */
-function Reviews({ lang, variant = "clean", bg = "var(--brah-cream-2)" }) {
-  const items = [
-    { name: "Sofia M.",      src: "Google", date: "2 weeks ago", rating: 5, text: { en: "Best smash in Ericeira hands down. The cheese brah is unreal, and the staff is the warmest. Walked in barefoot from the beach and felt like a regular.", pt: "O melhor smash da Ericeira, sem dúvida. O cheese brah é absurdo e o staff é o mais simpático que há. Entrei descalça da praia e senti-me em casa." } },
-    { name: "Tiago R.",      src: "Google", date: "1 month ago", rating: 5, text: { en: "Stopped by after a surf at Ribeira d'Ilhas. Quick, hot, exactly what I needed. The fries are double-fried and crispy as hell.", pt: "Passei depois de uma sessão na Ribeira d'Ilhas. Rápido, quente, exatamente o que precisava. As batatas são fritas duas vezes e estão estaladiças." } },
-    { name: "Marie L.",      src: "TripAdvisor", date: "3 weeks ago", rating: 5, text: { en: '"Our return policy is simple. You will return." — they were right. Third visit this trip. The vegan brah converted my boyfriend.', pt: '"A política de devolução é simples. Tu vais voltar." — tinham razão. Terceira vez esta viagem. O vegan brah converteu o meu namorado.' } },
-    { name: "@joaopedrosurfa", src: "Instagram", date: "5 days ago", rating: 5, text: { en: "post-surf brah hits different. that house sauce should be illegal.", pt: "brah pós-surf é outra coisa. esse molho da casa devia ser ilegal." } },
-  ];
-  const isHard = variant === "hard";
+
+// Reviews reais extraídas do Google — Brah Smash Burger (4.8★ · 165 avaliações)
+const STATIC_REVIEWS = [
+  { name: "Katharina Gary",   src: "Google", date: "5 dias atrás",   rating: 5, avatar: "assets/reviews/av-katharina.jpg", photo: "assets/reviews/katharina.jpg", text: { en: "Kind service, good burgers and sweet potato fries and also veggie options. Thank you!", pt: "Serviço simpático, bons burgers e batatas-doces fritas com opções vegetarianas. Obrigada!" } },
+  { name: "Camili Elias",     src: "Google", date: "3 sem. atrás",   rating: 5, avatar: "assets/reviews/av-camili.jpg",    photo: "assets/reviews/camili.jpg",    text: { en: "From the service to the burgers, everything was amazing!", pt: "Desde o atendimento aos burgers, tudo ótimo!" } },
+  { name: "re17",             src: "Google", date: "1 mês atrás",    rating: 5, avatar: null,                              photo: "assets/reviews/re17.jpg",       text: { en: "I really like the atmosphere here, the staff is also kind and friendly.", pt: "Adoro o ambiente aqui, o staff também é simpático e amigável." } },
+  { name: "pedro cunha",      src: "Google", date: "2 meses atrás",  rating: 5, avatar: "assets/reviews/av-pedro.jpg",    photo: "assets/reviews/pedro.jpg",      text: { en: "Best smash burger in town. Must visit in Ericeira.", pt: "Melhor smash burger da cidade. Visita obrigatória na Ericeira." } },
+  { name: "Miguel Júlio A.",  src: "Google", date: "2 meses atrás",  rating: 5, avatar: "assets/reviews/av-miguel.jpg",   photo: "assets/reviews/miguel.jpg",     text: { en: "First time at a Smash Burger in Ericeira. Amazing ingredients, good fries and an authentic special mayo sauce.", pt: "Primeira vez no Smash Burger na Ericeira. Ingredientes de deixar água na boca, boas batatas e um autêntico molho especial de maionese." } },
+  { name: "Prompt Command",   src: "Google", date: "8 meses atrás",  rating: 5, avatar: "assets/reviews/av-prompt.jpg",   photo: "assets/reviews/prompt.jpg",     text: { en: "So good we came back the next day too! Perfectly cooked with gorgeous sweet potato fries. Small menu but definitely perfected!", pt: "Tão bom que voltámos no dia seguinte! Perfeitamente confecionado com batatas-doces incríveis. Menu pequeno mas claramente perfecionado!" } },
+  { name: "Maite 13",         src: "Google", date: "8 meses atrás",  rating: 5, avatar: "assets/reviews/av-maite.jpg",    photo: "assets/reviews/maite.jpg",      text: { en: "It was all amazing, the secret sauce was delicious. The service makes you feel comfortable. Very recommended!", pt: "Foi tudo incrível, o molho secreto estava delicioso. O serviço faz-nos sentir confortáveis. Muito recomendado!" } },
+  { name: "Inês Picaró",      src: "Google", date: "8 meses atrás",  rating: 5, avatar: "assets/reviews/av-ines.jpg",     photo: "assets/reviews/ines.jpg",       text: { en: "Everything incredible! Very tasty smash burgers, crispy fries and super friendly service!", pt: "Tudo incrível! Smash burgers muito saborosos, batatas estaladiças e atendimento super simpático!" } },
+  { name: "Tomás Almas",      src: "Google", date: "9 meses atrás",  rating: 5, avatar: "assets/reviews/av-tomas.jpg",    photo: "assets/reviews/tomas.jpg",      text: { en: "Best smash burger I've ever had! I'm going to start going to Ericeira more often just to go there.", pt: "Melhor smash burger que já comi! Vou começar a ir mais vezes à Ericeira só para lá ir." } },
+  { name: "Olga Jankowska",   src: "Google", date: "9 meses atrás",  rating: 5, avatar: "assets/reviews/av-olga.jpg",     photo: "assets/reviews/olga.jpg",       text: { en: "Tried both the cheese burger and the bacon one — both really good and bigger than expected. Will be back for sure.", pt: "Experimentei o cheese burger e o bacon — ambos muito bons e maiores do que esperava. Com certeza voltarei." } },
+  { name: "Peter Meyers",     src: "Google", date: "10 meses atrás", rating: 5, avatar: "assets/reviews/av-peter.jpg",    photo: "assets/product-fries.jpg",      text: { en: "Great tasting burgers, get the special sauce on the side.", pt: "Burgers com um sabor incrível. Pede o molho especial à parte." } },
+  { name: "Agnieszka S.",     src: "Google", date: "1 sem. atrás",   rating: 5, avatar: "assets/reviews/av-agnieszka.jpg", photo: null, text: { en: "Very tasty, fresh and simple. Ordered a couple of times and never felt heavy. Love this place!", pt: "Muito saboroso, fresco e simples. Pedi várias vezes e nunca me senti pesada. Adoro este sítio!" } },
+  { name: "Marcos Júnior",    src: "Google", date: "9 dias atrás",   rating: 5, avatar: "assets/reviews/av-marcos.jpg",    photo: null, text: { en: "Calm place, delicious food. One of the best burgers I've ever eaten.", pt: "Lugar calminho, comida deliciosa. Um dos melhores hambúrgueres que já comi." } },
+  { name: "Victoria Belvisi", src: "Google", date: "11 dias atrás",  rating: 5, avatar: "assets/reviews/av-victoria.jpg",  photo: null, text: { en: "Delicious smash burgers. Not too heavy. Their truffle mayo is a must.", pt: "Smash burgers deliciosos. Não são pesados. A mayo de trufa é obrigatória." } },
+  { name: "Aaron Gesierich",  src: "Google", date: "3 sem. atrás",   rating: 5, avatar: "assets/reviews/av-aaron.jpg",     photo: null, text: { en: "This burger and fries taste better than anything I've had in a long time.", pt: "Este burger e estas batatas têm um sabor melhor do que qualquer coisa que comi há muito tempo." } },
+  { name: "Giulia",           src: "Google", date: "12 dias atrás",  rating: 5, avatar: "assets/reviews/av-giulia.jpg",    photo: null, text: { en: "Top place to eat a burger in Ericeira. Love the vibe.", pt: "Sítio top para comer um burger na Ericeira. Adoro a vibe." } },
+];
+
+const SRC_ICONS = {
+  Google: (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+    </svg>
+  ),
+  TripAdvisor: (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#00AF87">
+      <circle cx="6.5" cy="12" r="3"/><circle cx="17.5" cy="12" r="3"/>
+      <path d="M12 6C8.5 6 5.5 7.5 3.5 10l3 2a5.5 5.5 0 0 1 11 0l3-2C18.5 7.5 15.5 6 12 6z"/>
+    </svg>
+  ),
+  Instagram: (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E1306C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="#E1306C" stroke="none"/>
+    </svg>
+  ),
+};
+
+function ReviewAvatar({ name, photo }) {
+  const [failed, setFailed] = useState(false);
+  const initials = name.replace("@","").split(/\s|\./).filter(Boolean).slice(0,2).map(s=>s[0].toUpperCase()).join("");
+  const colors = ["var(--brah-tomato)","var(--brah-indigo)","var(--brah-stamp-red)","var(--brah-sky)"];
+  const bg = colors[name.charCodeAt(0) % colors.length];
+  if (photo && !failed) return <img src={photo} alt={name} onError={()=>setFailed(true)} style={{width:40,height:40,borderRadius:"50%",objectFit:"cover",flexShrink:0,border:"2px solid var(--brah-line)"}}/>;
+  return <div style={{width:40,height:40,borderRadius:"50%",background:bg,color:"var(--brah-cream)",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:14,flexShrink:0}}>{initials}</div>;
+}
+
+function ReviewCard({ r, lang }) {
   return (
-    <section style={{background: bg, padding: "96px 0", borderTop: "1px solid var(--brah-line)", borderBottom: "1px solid var(--brah-line)"}}>
-      <div style={{maxWidth: 1320, margin: "0 auto", padding: "0 32px"}}>
-        <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40, flexWrap: "wrap", gap: 16}}>
-          <div>
-            <div style={overStyle("var(--brah-stamp-red)")}>{lang === "en" ? "WHAT PEOPLE SAY" : "O QUE DIZEM"}</div>
-            <h3 style={{fontFamily: "var(--font-display)", fontSize: "clamp(36px, 4.5vw, 64px)", lineHeight: 0.98, letterSpacing: "-0.02em", margin: "12px 0 0", maxWidth: 720}}>
-              {lang === "en" ? <>Don't take our word for it. <em style={{color:"var(--brah-stamp-red)"}}>Take theirs.</em></> : <>Não acredites em nós. <em style={{color:"var(--brah-stamp-red)"}}>Acredita neles.</em></>}
-            </h3>
-          </div>
-          <div style={{textAlign: "right"}}>
-            <div style={{fontFamily: "var(--font-display)", fontSize: 48, lineHeight: 1, letterSpacing: "-0.02em"}}>
-              4.9 <span style={{color: "var(--brah-stamp-red)"}}>★</span>
-            </div>
-            <div style={{fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--brah-ink-soft)", marginTop: 4}}>
-              {lang === "en" ? "based on 412 reviews" : "com base em 412 avaliações"}
-            </div>
+    <div style={{width: r.photo ? 300 : 260, flexShrink:0, background:"var(--brah-cream)", border:"1.5px solid var(--brah-line)", padding:0, display:"flex", flexDirection:"column", overflow:"hidden"}}>
+      {r.photo && <img src={r.photo} alt="" style={{width:"100%",height:160,objectFit:"cover",flexShrink:0}}/>}
+      <div style={{padding: r.photo ? 18 : "14px 16px", display:"flex", flexDirection:"column", gap:8, flex:1}}>
+      <div style={{color:"var(--brah-stamp-red)",fontSize:15,letterSpacing:"0.06em"}}>{"★".repeat(r.rating)}</div>
+      <p style={{margin:0,fontSize:13,lineHeight:1.6,color:"var(--brah-ink)",flex:1}}>"{r.text[lang] || r.text.en}"</p>
+      <div style={{borderTop:"1px solid var(--brah-line)",paddingTop:12,display:"flex",alignItems:"center",gap:10}}>
+        <ReviewAvatar name={r.name} photo={r.avatar}/>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontWeight:700,fontSize:13,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{r.name}</div>
+          <div style={{fontSize:11,color:"var(--brah-ink-soft)",display:"flex",alignItems:"center",gap:5,marginTop:2}}>
+            {SRC_ICONS[r.src] || null}
+            <span>{r.date}</span>
           </div>
         </div>
-        <div style={{display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: isHard ? 20 : 12}}>
-          {items.map((r, i) => (
-            isHard
-              ? <HardCard key={i} offset={5}><ReviewBody r={r} lang={lang}/></HardCard>
-              : <div key={i} style={{border: "1px solid var(--brah-line)", background: "var(--brah-cream)", padding: 0}}><ReviewBody r={r} lang={lang}/></div>
-          ))}
+      </div>
+      </div>
+    </div>
+  );
+}
+
+function Reviews({ lang, variant = "clean", bg = "var(--brah-cream-2)" }) {
+  const [reviews, setReviews] = useState(STATIC_REVIEWS);
+  const [paused, setPaused] = useState(false);
+  const trackRef = useRef(null);
+
+  // Fetch from Google Places if API key available
+  useEffect(() => {
+    const placeId = window.BRAH_GOOGLE_PLACE_ID;
+    const apiKey  = window.BRAH_GOOGLE_API_KEY;
+    if (!placeId || !apiKey) return;
+    fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&key=${apiKey}`)
+      .then(r => r.json())
+      .then(data => {
+        const r = data.result?.reviews;
+        if (r?.length) {
+          setReviews(r.map(rv => ({
+            name: rv.author_name, src: "Google",
+            date: rv.relative_time_description, rating: rv.rating,
+            avatar: rv.profile_photo_url, photo: null,
+            text: { en: rv.text, pt: rv.text },
+          })));
+        }
+      }).catch(() => {});
+  }, []);
+
+  // quadruplica para garantir loop contínuo mesmo com poucas reviews
+  const doubled = [...reviews, ...reviews, ...reviews, ...reviews];
+
+  return (
+    <section style={{background: bg, padding: "80px 0", borderTop: "1px solid var(--brah-line)", borderBottom: "1px solid var(--brah-line)", overflow: "hidden"}}>
+      {/* header */}
+      <div style={{maxWidth: 1320, margin: "0 auto", padding: "0 32px", display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40, flexWrap: "wrap", gap: 16}}>
+        <div>
+          <div style={overStyle("var(--brah-stamp-red)")}>{lang === "en" ? "WHAT PEOPLE SAY" : "O QUE DIZEM"}</div>
+          <h3 style={{fontFamily: "var(--font-display)", fontSize: "clamp(32px, 4vw, 60px)", lineHeight: 0.98, letterSpacing: "-0.02em", margin: "12px 0 0"}}>
+            {lang === "en" ? <>Don't take our word for it. <em style={{color:"var(--brah-stamp-red)"}}>Take theirs.</em></> : <>Não acredites em nós. <em style={{color:"var(--brah-stamp-red)"}}>Acredita neles.</em></>}
+          </h3>
+        </div>
+        <div style={{textAlign: "right"}}>
+          <div style={{fontFamily: "var(--font-display)", fontSize: 48, lineHeight: 1, letterSpacing: "-0.02em"}}>4.8 <span style={{color:"var(--brah-stamp-red)"}}>★</span></div>
+          <div style={{fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--brah-ink-soft)", marginTop: 4}}>
+            {lang === "en" ? "165 reviews · Google" : "165 avaliações · Google"}
+          </div>
+        </div>
+      </div>
+
+      {/* carousel */}
+      <div
+        style={{userSelect: "none"}}
+      >
+        <style>{`
+          @keyframes brah-reviews-scroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-25%); }
+          }
+        `}</style>
+        <div
+          ref={trackRef}
+          style={{
+            display: "flex", gap: 16, paddingLeft: 32, alignItems: "flex-start",
+            animation: `brah-reviews-scroll ${Math.max(reviews.length * 4, 30)}s linear infinite`,
+            animationPlayState: "running",
+            width: "max-content",
+          }}
+        >
+          {doubled.map((r, i) => <ReviewCard key={i} r={r} lang={lang}/>)}
         </div>
       </div>
     </section>
-  );
-}
-function ReviewBody({ r, lang }) {
-  return (
-    <div style={{padding: 22}}>
-      <div style={{display: "flex", gap: 6, color: "var(--brah-stamp-red)", fontSize: 16, letterSpacing: "0.06em"}}>
-        {"★★★★★".slice(0, r.rating)}
-      </div>
-      <p style={{margin: "12px 0 18px", fontSize: 14, lineHeight: 1.55, color: "var(--brah-ink)"}}>"{r.text[lang]}"</p>
-      <div style={{borderTop: "1px solid var(--brah-line)", paddingTop: 12, display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8}}>
-        <div>
-          <div style={{fontWeight: 700, fontSize: 13}}>{r.name}</div>
-          <div style={{fontSize: 11, color: "var(--brah-ink-soft)"}}>{r.date} · {r.src}</div>
-        </div>
-      </div>
-    </div>
   );
 }

@@ -8,7 +8,7 @@ const { useState: useStateB } = React;
 function BlendSite({ page, lang, onNav, onLang }) {
   return (
     <div style={{background: "var(--brah-cream)", color: "var(--brah-ink)", minHeight: "100vh"}}>
-      <MetaBar variant="cream" lang={lang} onLang={onLang}/>
+      <MetaBar variant="tomato" lang={lang} onLang={onLang}/>
       <BlendHeader page={page} onNav={onNav} lang={lang}/>
       <main>
         {page === "home"     && <BlendHome     lang={lang} onNav={onNav}/>}
@@ -26,30 +26,50 @@ function BlendSite({ page, lang, onNav, onLang }) {
   );
 }
 
-/* ─── Header — clean Vício but with a small Sun + stamped CTA ─── */
+/* ─── Header — desktop nav + mobile hamburger menu ─── */
 function BlendHeader({ page, onNav, lang }) {
   const items = ["home", "menu", "story", "events", "gallery", "catering", "visit"];
+  const [open, setOpen] = useStateB(false);
+  const go = (id) => { onNav(id); setOpen(false); };
+
   return (
     <header style={{background: "var(--brah-cream)", borderBottom: "1px solid var(--brah-ink)", position: "sticky", top: 0, zIndex: 30}}>
-      <div style={{maxWidth: 1600, margin: "0 auto", padding: "0 24px", height: 76, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24}}>
+      <div style={{maxWidth: 1600, margin: "0 auto", padding: "0 24px", height: 72, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24}}>
         <div style={{display: "flex", alignItems: "center", gap: 12}}>
           <Sun size={28} color="var(--brah-stamp-red)" spin/>
-          <Wordmark height={32} onClick={() => onNav("home")}/>
+          <Wordmark height={32} onClick={() => go("home")}/>
         </div>
-        <nav style={{display: "flex", gap: 26, flexWrap: "wrap", justifyContent: "center"}}>
+        <nav className="brah-desktop-nav" style={{display: "flex", gap: 26, flexWrap: "wrap", justifyContent: "center"}}>
           {items.map(id => (
-            <a key={id} onClick={() => onNav(id)} style={{
+            <a key={id} onClick={() => go(id)} style={{
               cursor: "pointer", fontSize: 13, fontWeight: 600, textTransform: "lowercase",
               color: page === id ? "var(--brah-stamp-red)" : "var(--brah-ink)",
               borderBottom: page === id ? "2px solid var(--brah-stamp-red)" : "2px solid transparent",
               paddingBottom: 2, transition: "color var(--t-fast)",
-            }}>
+            }}>{window.BRAH.nav[id][lang]}</a>
+          ))}
+        </nav>
+        <div style={{display: "flex", gap: 10, alignItems: "center"}}>
+          <button onClick={() => go("menu")} className="brah-desktop-nav" style={btnB}>{lang === "en" ? "the menu" : "o menu"} →</button>
+          <button onClick={() => setOpen(o => !o)} className="brah-mobile-burger" aria-label="menu" style={{background:"none",border:"none",cursor:"pointer",padding:6,flexDirection:"column",gap:5}}>
+            <span style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s",transform:open?"rotate(45deg) translate(5px,5px)":"none"}}/>
+            <span style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s",opacity:open?0:1}}/>
+            <span style={{display:"block",width:24,height:2,background:"var(--brah-ink)",transition:"all .25s",transform:open?"rotate(-45deg) translate(5px,-5px)":"none"}}/>
+          </button>
+        </div>
+      </div>
+      {open && (
+        <div style={{background:"var(--brah-cream)",borderTop:"1px solid var(--brah-line)",padding:"12px 24px 24px"}}>
+          {items.map(id => (
+            <a key={id} onClick={() => go(id)} style={{display:"block",padding:"12px 0",fontSize:17,fontWeight:700,textTransform:"lowercase",cursor:"pointer",color:page===id?"var(--brah-stamp-red)":"var(--brah-ink)",borderBottom:"1px solid var(--brah-line)"}}>
               {window.BRAH.nav[id][lang]}
             </a>
           ))}
-        </nav>
-        <button onClick={() => onNav("menu")} style={btnB}>{lang === "en" ? "the menu" : "o menu"} →</button>
-      </div>
+          <a href={window.BRAH.brand.ubereats} target="_blank" rel="noreferrer" style={{...btnB,display:"inline-flex",marginTop:18,textDecoration:"none"}}>
+            {lang === "en" ? "order on uber eats" : "pede no uber eats"} →
+          </a>
+        </div>
+      )}
     </header>
   );
 }
@@ -89,7 +109,7 @@ function BlendHome({ lang, onNav }) {
               {H.sub[lang]}
             </HandNote>
             <div style={{display: "flex", gap: 14, marginTop: 36, flexWrap: "wrap"}}>
-              <button onClick={() => onNav("menu")} style={btnB}>{lang === "en" ? "the menu" : "o menu"} →</button>
+              <a href={window.BRAH.brand.ubereats} target="_blank" rel="noreferrer" style={{...btnB, textDecoration: "none"}}>{lang === "en" ? "order on uber eats" : "pede no uber eats"} →</a>
               <button onClick={() => onNav("visit")} style={btnBghost}>{lang === "en" ? "find us" : "encontra-nos"}</button>
             </div>
           </div>
@@ -99,10 +119,6 @@ function BlendHome({ lang, onNav }) {
             </HardCard>
             <div style={{position: "absolute", right: -20, bottom: 40, transform: "rotate(-6deg)"}}>
               <StampB label={lang === "en" ? "OPEN 10:00 — 23:30" : "ABERTO 10:00 — 23:30"}/>
-            </div>
-            {/* Loyalty sticker */}
-            <div style={{position: "absolute", left: -28, top: 24}}>
-              <LoyaltySticker lang={lang}/>
             </div>
           </div>
         </div>
@@ -142,29 +158,6 @@ function BlendHome({ lang, onNav }) {
   );
 }
 
-/* ─── LoyaltySticker ─── */
-function LoyaltySticker({ lang, stamps = 4 }) {
-  return (
-    <div style={{
-      width: 200, padding: 16, background: "var(--brah-cream)",
-      border: "2px dashed var(--brah-tomato)", borderRadius: 18,
-      boxShadow: "var(--shadow-sticker)", transform: "rotate(-7deg)",
-      fontFamily: "var(--font-body)",
-    }}>
-      <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start"}}>
-        <span style={{fontFamily: "var(--font-display)", fontSize: 22, lineHeight: 1, fontStyle: "italic"}}>{lang === "en" ? "Loyalty\nCard" : "Cartão\nFidelidade"}</span>
-        <StampB label="FREE"/>
-      </div>
-      <div style={{display: "flex", gap: 5, marginTop: 14}}>
-        {Array.from({length: 7}).map((_, i) => (
-          <span key={i} style={{width: 16, height: 16, borderRadius: "50%", border: "1.5px solid var(--brah-black)", background: i < stamps ? "var(--brah-tomato)" : "transparent", borderColor: i < stamps ? "var(--brah-tomato)" : "var(--brah-black)"}}></span>
-        ))}
-      </div>
-      <div style={{...overB, marginTop: 10, fontSize: 9, color: "var(--brah-ink-soft)"}}>{lang === "en" ? "STAMP 7 = ONE FREE BRAH" : "SELO 7 = UM BRAH GRÁTIS"}</div>
-    </div>
-  );
-}
-
 /* ─── Collection — list left + hard-shadow product card right ─── */
 function BlendCollection({ lang, onNav }) {
   const products = window.BRAH.products;
@@ -187,7 +180,7 @@ function BlendCollection({ lang, onNav }) {
             {products.map((p, i) => (
               <li key={p.id}
                   onMouseEnter={() => setActive(i)}
-                  onClick={() => onNav("menu")}
+                  onClick={() => window.open(p.ubereats || window.BRAH.brand.ubereats, "_blank")}
                   style={{
                     borderBottom: "1px solid var(--brah-ink)",
                     padding: "28px 0",
@@ -265,6 +258,9 @@ function BlendMenu({ lang, onNav }) {
                 {i === 0 && <HandNote color="tomato" rotate={-3} size={26} style={{marginTop: 18}}>{lang === "en" ? "the original. start here." : "o original. começa por aqui."}</HandNote>}
                 {i === 1 && <HandNote color="indigo" rotate={2} size={26} style={{marginTop: 18}}>{lang === "en" ? "what everyone orders." : "o que toda a gente pede."}</HandNote>}
                 {i === 3 && <HandNote color="yellow" rotate={-2} size={26} style={{marginTop: 18}}>{lang === "en" ? "100% plant. 100% smash." : "100% vegetal. 100% smash."}</HandNote>}
+                <a href={p.ubereats} target="_blank" rel="noreferrer" style={{...btnB, display: "inline-flex", marginTop: 28, textDecoration: "none"}}>
+                  {lang === "en" ? "order this one" : "pedir este"} →
+                </a>
               </div>
             </div>
           </div>
@@ -518,8 +514,15 @@ function BlendCatering({ lang }) {
       </div>
       <div style={{marginTop: 56, padding: 32, background: "var(--brah-black)", color: "var(--brah-cream)", border: "2px solid var(--brah-black)", boxShadow: "6px 6px 0 var(--brah-tomato)", textAlign: "center"}}>
         <div style={{...overB, color: "var(--brah-tomato)"}}>{lang === "en" ? "GET A QUOTE" : "PEDE ORÇAMENTO"}</div>
-        <h3 style={{fontFamily: "var(--font-display)", fontSize: 48, margin: "8px 0 16px", color: "var(--brah-cream)"}}>brah@ericeira.pt</h3>
-        <button style={{...btnB, background: "var(--brah-tomato)"}}>{lang === "en" ? "send a message" : "envia mensagem"} →</button>
+        <h3 style={{fontFamily: "var(--font-display)", fontSize: 48, margin: "8px 0 16px", color: "var(--brah-cream)"}}>+351 912 023 822</h3>
+        <div style={{display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap"}}>
+          <a href="https://wa.me/351912023822?text=Ol%C3%A1!%20Gostava%20de%20pedir%20um%20or%C3%A7amento%20para%20catering%20brah." target="_blank" rel="noreferrer" style={{...btnB, background: "var(--brah-tomato)", textDecoration: "none"}}>
+            {lang === "en" ? "whatsapp us" : "manda whatsapp"} →
+          </a>
+          <a href="tel:+351912023822" style={{...btnB, background: "transparent", color: "var(--brah-cream)", borderColor: "var(--brah-cream)", boxShadow: "3px 3px 0 var(--brah-tomato)", textDecoration: "none"}}>
+            {lang === "en" ? "call us" : "liga-nos"}
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -527,26 +530,17 @@ function BlendCatering({ lang }) {
 
 function FauxMap() {
   return (
-    <div style={{position: "relative", aspectRatio: "4/5"}}>
-      <svg viewBox="0 0 400 500" style={{position: "absolute", inset: 0, width: "100%", height: "100%", border: "1px solid var(--brah-ink)"}}>
-        <rect width="400" height="500" fill="var(--brah-lavender)"/>
-        <path d="M0,200 Q100,180 200,220 T400,210 L400,500 L0,500 Z" fill="var(--brah-peach)" opacity="0.5"/>
-        <path d="M0,260 Q120,240 220,280 T400,270" stroke="var(--brah-sky)" fill="none" strokeWidth="40" opacity="0.55"/>
-        <g stroke="var(--brah-ink)" strokeWidth="1.5" fill="none">
-          <line x1="20" y1="100" x2="380" y2="120"/>
-          <line x1="60" y1="60" x2="160" y2="280"/>
-          <line x1="240" y1="40" x2="200" y2="360"/>
-          <line x1="0" y1="340" x2="400" y2="320"/>
-          <line x1="120" y1="0" x2="100" y2="500"/>
-          <line x1="300" y1="80" x2="280" y2="440"/>
-        </g>
-        <circle cx="210" cy="290" r="14" fill="var(--brah-stamp-red)"/>
-        <circle cx="210" cy="290" r="6" fill="var(--brah-cream)"/>
-        <text x="220" y="320" fontFamily="var(--font-body)" fontSize="13" fontWeight="700" letterSpacing="0.15em" fill="var(--brah-black)">brah</text>
-      </svg>
-      <div style={{position: "absolute", bottom: 16, left: 16, right: 16, padding: 14, background: "var(--brah-cream)", border: "2px solid var(--brah-black)", boxShadow: "4px 4px 0 var(--brah-black)"}}>
-        <div style={{...overB, fontSize: 10, color: "var(--brah-stamp-red)"}}>YOU ARE HERE</div>
-        <div style={{fontWeight: 700, fontSize: 15, marginTop: 4}}>Rua dos Ferreiros 3A · 2655-279 Ericeira</div>
+    <div style={{position: "relative", aspectRatio: "4/5", border: "2px solid var(--brah-black)", boxShadow: "6px 6px 0 var(--brah-black)", overflow: "hidden"}}>
+      <iframe
+        title="Brah Smash Burger — Ericeira"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-9.4195%2C38.9635%2C-9.4150%2C38.9665&layer=mapnik&marker=38.9649%2C-9.4172"
+        style={{width: "100%", height: "100%", border: 0}}
+        loading="lazy"
+      />
+      <div style={{position: "absolute", bottom: 0, left: 0, right: 0, padding: "12px 16px", background: "var(--brah-cream)", borderTop: "2px solid var(--brah-black)"}}>
+        <div style={{...overB, fontSize: 10, color: "var(--brah-stamp-red)"}}>ESTAMOS AQUI</div>
+        <div style={{fontWeight: 700, fontSize: 14, marginTop: 3}}>Rua dos Ferreiros 3A · Ericeira</div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Ferreiros+3A+Ericeira" target="_blank" rel="noreferrer" style={{fontSize: 11, color: "var(--brah-stamp-red)", fontWeight: 700, letterSpacing: "0.1em", textDecoration: "none"}}>ABRIR NO GOOGLE MAPS →</a>
       </div>
     </div>
   );

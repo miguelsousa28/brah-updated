@@ -6,10 +6,9 @@
 window.BRAH = {
   brand: {
     address: "Rua dos Ferreiros 3A, 2655-279 Ericeira",
-    phone: "+351 261 000 000",
-    email: "brah@ericeira.pt",
-    instagram: "@brah.ericeira",
-    facebook: "brah.ericeira",
+    phone: "+351 912 023 822",
+    ubereats: "https://www.ubereats.com/pt/store/brah-smash-burger/Zeh4R32AXUuF1RrxdX1iSw",
+    instagram: "https://www.instagram.com/brah_smashburger/",
     hours: [
       { d: { en: "Mon — Thu",      pt: "Seg — Qui" },        h: "10:00 — 23:30" },
       { d: { en: "Fri & Sat",      pt: "Sex e Sáb" },         h: "10:00 — 00:00" },
@@ -26,6 +25,7 @@ window.BRAH = {
       ing:  { en: "Smashed patty · American cheese · lettuce · tomato · house sauce · brioche",
               pt: "Hambúrguer smashed · queijo americano · alface · tomate · molho da casa · brioche" },
       img: "assets/product-classic-brah.jpg",
+      ubereats: "https://www.ubereats.com/pt/store/brah-smash-burger/Zeh4R32AXUuF1RrxdX1iSw?diningMode=PICKUP&mod=quickView&modctx=%257B%2522storeUuid%2522%253A%252265e87847-7d80-5d4b-85d5-1af1757d624b%2522%252C%2522sectionUuid%2522%253A%2522a782eeb8-8a84-578a-9518-1134a9d7644e%2522%252C%2522subsectionUuid%2522%253A%2522b4c1385a-5597-49ed-89ab-f8a12ee501c5%2522%252C%2522itemUuid%2522%253A%252232dbb536-b9f6-4ae0-85fe-6a82ab284d98%2522%252C%2522showSeeDetailsCTA%2522%253Atrue%257D",
     },
     {
       id: "cheese",
@@ -34,6 +34,7 @@ window.BRAH = {
       ing:  { en: "Double smashed patty · double American · pickles · onion · ketchup + mustard",
               pt: "Dois hambúrgueres smashed · queijo americano duplo · pickles · cebola · ketchup e mostarda" },
       img: "assets/product-cheese-brah.jpg",
+      ubereats: "https://www.ubereats.com/pt/store/brah-smash-burger/Zeh4R32AXUuF1RrxdX1iSw?diningMode=PICKUP&mod=quickView&modctx=%257B%2522storeUuid%2522%253A%252265e87847-7d80-5d4b-85d5-1af1757d624b%2522%252C%2522sectionUuid%2522%253A%2522a782eeb8-8a84-578a-9518-1134a9d7644e%2522%252C%2522subsectionUuid%2522%253A%2522b4c1385a-5597-49ed-89ab-f8a12ee501c5%2522%252C%2522itemUuid%2522%253A%2522b05c0728-9b82-519a-a558-6ed99c1d8df1%2522%252C%2522showSeeDetailsCTA%2522%253Atrue%257D",
     },
     {
       id: "bacon",
@@ -42,6 +43,7 @@ window.BRAH = {
       ing:  { en: "Double smashed patty · double cheddar · bacon · house sauce",
               pt: "Dois hambúrgueres smashed · cheddar duplo · bacon · molho da casa" },
       img: "assets/product-bacon-brah.jpg",
+      ubereats: "https://www.ubereats.com/pt/store/brah-smash-burger/Zeh4R32AXUuF1RrxdX1iSw?diningMode=PICKUP&mod=quickView&modctx=%257B%2522storeUuid%2522%253A%252265e87847-7d80-5d4b-85d5-1af1757d624b%2522%252C%2522sectionUuid%2522%253A%2522a782eeb8-8a84-578a-9518-1134a9d7644e%2522%252C%2522subsectionUuid%2522%253A%2522b4c1385a-5597-49ed-89ab-f8a12ee501c5%2522%252C%2522itemUuid%2522%253A%2522b8ea3640-4c6b-514f-a5f3-3a6717917fc8%2522%252C%2522showSeeDetailsCTA%2522%253Atrue%257D",
     },
     {
       id: "vegan",
@@ -50,6 +52,7 @@ window.BRAH = {
       ing:  { en: "Plant-based patty · vegan cheddar · lettuce · tomato · vegan house sauce",
               pt: "Hambúrguer vegetal · cheddar vegan · alface · tomate · molho da casa vegan" },
       img: "assets/product-vegan-brah.jpg",
+      ubereats: "https://www.ubereats.com/pt/store/brah-smash-burger/Zeh4R32AXUuF1RrxdX1iSw?diningMode=PICKUP&mod=quickView&modctx=%257B%2522storeUuid%2522%253A%252265e87847-7d80-5d4b-85d5-1af1757d624b%2522%252C%2522sectionUuid%2522%253A%2522a782eeb8-8a84-578a-9518-1134a9d7644e%2522%252C%2522subsectionUuid%2522%253A%25222440cd35-b8a0-4bc3-8ff6-d01633f172f8%2522%252C%2522itemUuid%2522%253A%252231103cb3-d9c0-495a-8e43-a187c504bb16%2522%252C%2522showSeeDetailsCTA%2522%253Atrue%257D",
     },
   ],
 

@@ -4,10 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>brah · smash burger · ericeira</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icon-sun.svg">
+    <meta name="theme-color" content="#E94E3A">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/kit.css">
 <style>
   html, body { background: var(--brah-cream); margin: 0; scroll-behavior: smooth; }
+  .brah-mobile-burger { display: none !important; }
   body { font-family: var(--font-body); color: var(--brah-ink); }
   * { box-sizing: border-box; }
   @keyframes brah-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -20,11 +23,99 @@
   button:focus-visible, a:focus-visible { outline: 2px solid var(--brah-tomato); outline-offset: 3px; }
   button { transition: transform 90ms var(--ease-out), box-shadow var(--t-base) var(--ease-out), background var(--t-base) var(--ease-out); }
   button:active { transform: translateY(1px) scale(0.985); }
-  @media (max-width: 600px) {
-    div[style*="grid-template-columns: repeat(2, 1fr)"],
-    div[style*="grid-template-columns: repeat(3, 1fr)"],
-    div[style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: 1fr !important; }
-    div[style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+  @media (max-width: 768px) {
+    /* all 2-col and multi-col grids → stack */
+    div[style*="grid-template-columns: 1.15fr"],
+    div[style*="grid-template-columns: 1.1fr"],
+    div[style*="grid-template-columns: 1.4fr"],
+    div[style*="grid-template-columns: 1fr 1fr"],
+    div[style*="grid-template-columns: repeat(2"],
+    div[style*="grid-template-columns: repeat(3"],
+    div[style*="grid-template-columns: repeat(4"],
+    div[style*="grid-template-columns: 120px"] { grid-template-columns: 1fr !important; }
+
+    /* paddings — reduzir para mobile */
+    section[style*="padding: 120px"],
+    section[style*="padding: 96px"],
+    section[style*="padding: 80px"],
+    div[style*="padding: 120px"],
+    div[style*="padding: 96px"] { padding-top: 48px !important; padding-bottom: 48px !important; }
+
+    section[style*="padding: 64px 24px"],
+    section[style*="padding: 64px 32px"] { padding: 40px 16px !important; }
+
+    section[style*="padding: 80px 32px"],
+    section[style*="padding: 96px 32px"],
+    section[style*="padding: 120px 32px"],
+    section[style*="padding: 0 32px"],
+    div[style*="padding: 0 32px"],
+    div[style*="padding: 64px 32px"],
+    div[style*="padding: 96px 32px"] { padding-left: 16px !important; padding-right: 16px !important; }
+
+    /* MetaBar mobile — só insta + lang toggle */
+    .brah-metabar-text { display: none !important; }
+    .brah-metabar-inner {
+      justify-content: center !important;
+      padding: 10px 16px !important;
+    }
+
+    /* header nav — esconder desktop nav, mostrar hamburger */
+    .brah-desktop-nav { display: none !important; }
+    .brah-mobile-burger { display: flex !important; }
+    header > div { padding: 0 16px !important; }
+
+    /* stickers e elementos absolutos que transbordam no mobile */
+    div[style*="position: absolute"][style*="left: -28"],
+    div[style*="position: absolute"][style*="right: -20"],
+    div[style*="position: absolute"][style*="top: -14"],
+    div[style*="position: absolute"][style*="bottom: -16"],
+    div[style*="position: absolute"][style*="right: -14"],
+    div[style*="position: absolute"][style*="left: -14"] { display: none !important; }
+
+    /* HardCard — remover shadow offset no mobile para não transbordar */
+    div[style*="box-shadow"][style*="var(--brah-black)"] { box-shadow: 3px 3px 0 var(--brah-black) !important; }
+
+    /* menu page — garantir que imagem vem sempre primeiro */
+    div[style*="order: 2"] { order: 1 !important; }
+    div[style*="order: 1"][style*="font-family"] { order: 2 !important; }
+
+    /* HandNote e rotações — reduzir no mobile */
+    div[style*="transform: rotate(-3deg)"],
+    div[style*="transform: rotate(2deg)"],
+    div[style*="transform: rotate(-2deg)"] { transform: none !important; }
+
+    /* hero image card — aspeto mais compacto */
+    div[style*="position: relative"][style*="aspect-ratio: 4/5"] { aspect-ratio: 4/3 !important; }
+
+    /* gaps */
+    div[style*="gap: 80"],
+    div[style*="gap: 64"],
+    div[style*="gap: 56"] { gap: 24px !important; }
+
+    /* story hero height */
+    section[style*="height: min(70vh"] { height: 40vh !important; }
+
+    /* gallery grid → 2 cols */
+    div[style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+
+    /* catering cards → 1 col */
+    div[style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr !important; }
+
+    /* timeline grid */
+    div[style*="grid-template-columns: 120px 1fr 1fr"] { grid-template-columns: 64px 1fr !important; }
+    div[style*="grid-template-columns: 120px 1fr 1fr"] > span:last-child { display: none !important; }
+
+    /* maxWidth containers */
+    div[style*="max-width: 1600px"],
+    div[style*="max-width: 1320px"],
+    div[style*="max-width: 960px"] { padding-left: 16px !important; padding-right: 16px !important; }
+
+    /* buttons row */
+    div[style*="display: flex"][style*="gap: 14"],
+    div[style*="display: flex"][style*="gap: 12"] { flex-wrap: wrap !important; }
+
+    /* faux map — aspect ratio mais curto */
+    div[style*="aspect-ratio: 4/5"] { aspect-ratio: 4/3 !important; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
